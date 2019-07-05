@@ -1,5 +1,5 @@
 
-![](icon.png)
+![ ](icon.png)
 
 # SimpleKeylogger
 *this is a simple keylogger written in Python using the* 
