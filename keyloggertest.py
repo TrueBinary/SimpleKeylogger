@@ -1,5 +1,5 @@
 #lib importantes
-
+#-*- coding: utf-8 -*-
 import pyxhook
 import datetime,os
 import smtplib

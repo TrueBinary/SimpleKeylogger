@@ -5,3 +5,7 @@ and the keylogger send to your email everything that keylogger got
 #What i will Need to you this Script ?
 do you gonna need pyxhood and python-xlib
 
+#feature
+version to windows and make the program run in the back ground
+
+Add the Pyinstaller 
