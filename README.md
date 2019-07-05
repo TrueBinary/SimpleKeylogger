@@ -11,19 +11,19 @@ keylogger got*
 ## What i will Need to you this Script ?
 do you gonna need pyxhood and python-xlib
 
-##How i use it ?
+## How i use it ?
 >python keyloggertest.py
 
-#Meta
+# Meta
 [@Mrtrue](https://twitter.com/TrueBinary) - gui15787@gmail.com
 distributed under license GNU GENERAL PUBLIC LICENSE version 3 by [Free Software Foundation, Inc.](fsf.org) Read the original GPL v3.
 
-##feature
+## feature
  - [ ]version to windows
  - [ ]make the program run in the back ground
  - [ ]Add the Pyinstaller 
 
-###Contributing
+### Contributing
 1. Fork it (<https://github.com/TrueBinaru/SimpleKeyLogger/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
