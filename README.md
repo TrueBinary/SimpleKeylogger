@@ -19,9 +19,9 @@ do you gonna need pyxhood and python-xlib
 distributed under license GNU GENERAL PUBLIC LICENSE version 3 by [Free Software Foundation, Inc.](fsf.org) Read the original GPL v3.
 
 ##feature
- - []version to windows
- - []make the program run in the back ground
- - []Add the Pyinstaller 
+ - [ ]version to windows
+ - [ ]make the program run in the back ground
+ - [ ]Add the Pyinstaller 
 
 ###Contributing
 1. Fork it (<https://github.com/TrueBinaru/SimpleKeyLogger/fork>)
