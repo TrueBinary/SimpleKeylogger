@@ -14,7 +14,7 @@ do you gonna need pyxhood and python-xlib
 ## How i use it ?
 >python keylogger.py --email "" --password ""
 
-##Syntax 
+## Syntax 
 ```
 --password is your password of your email
   
