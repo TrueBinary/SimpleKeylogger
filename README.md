@@ -14,10 +14,14 @@ do you gonna need pyxhood and python-xlib
 ## How i use it ?
 >python keylogger.py --email "" --password ""
 
-##Syntax
- > --password is your password of your email
- > --email is logic your email to send the logs 
- > --local is the local where the program gonna save the logs and did will use to send the logs to your email 
+##Syntax 
+```
+--password is your password of your email
+  
+  --email is logic your email to send the logs 
+  
+  --local is the local where the program gonna save the logs and did will use to send the logs to your email
+```
 
 # Meta
 [@Mrtrue](https://twitter.com/TrueBinary) - gui15787@gmail.com
