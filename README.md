@@ -12,16 +12,21 @@ keylogger got*
 do you gonna need pyxhood and python-xlib
 
 ## How i use it ?
->python keyloggertest.py
+>python keylogger.py --email "" --password ""
+
+##Syntax
+ > --password is your password of your email
+ > --email is logic your email to send the logs 
+ > --local is the local where the program gonna save the logs and did will use to send the logs to your email 
 
 # Meta
 [@Mrtrue](https://twitter.com/TrueBinary) - gui15787@gmail.com
 distributed under license GNU GENERAL PUBLIC LICENSE version 3 by [Free Software Foundation, Inc.](fsf.org) Read the original GPL v3.
 
 ## Feature
- - [ ] Version to windows
- - [ ] Make the program run in the back ground
- - [ ] Add the Pyinstaller 
+ - [x] Arguments and make a binare of the program 
+ - [ ] Make the program run in the background
+ - [x] Add the Pyinstaller 
 
 ### Contributing
 1. Fork it (<https://github.com/TrueBinaru/SimpleKeyLogger/fork>)
