@@ -50,4 +50,4 @@ distributed under license GNU GENERAL PUBLIC LICENSE version 3 by [Free Software
 5. Create a new Pull Request
 
 ## How to use look at this tutorial
-![](https://youtu.be/qAvAR-FBc5w)
+[![Tutorial](https://user-images.githubusercontent.com/38415293/60913641-3ae19a80-a25e-11e9-93d2-afdae59a852f.jpg)](https://youtu.be/qAvAR-FBc5w)
