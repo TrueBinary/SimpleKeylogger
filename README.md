@@ -19,7 +19,7 @@ pip install pyscreenshot pyxhook & sudo apt install python-xlib
 ```
 
 ## How i use it ?
->python keylogger.py --email "" --password ""
+>python keylogger.py --email "exemple@explem.com" --password "exemple1234"
 
 ## Syntax 
 ```
