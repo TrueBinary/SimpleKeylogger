@@ -18,8 +18,11 @@ the last one rest is pyscreenshot
 pip install pyscreenshot pyxhook & sudo apt install python-xlib
 ```
 
-## How i use it ?
->python keylogger.py --email "exemple@explem.com" --password "exemple1234"
+## How i use it on Linux ?
+>python keylogger.py --email "exemple@exeple.com" --password "exemple1234"
+
+## How i use it on Windows?
+>./keylogger.exe -e "exemple@exemple" -p "exemple1234" --local C:/anyware/Desktop/logs.txt
 
 ## Syntax 
 ```
@@ -38,6 +41,8 @@ distributed under license GNU GENERAL PUBLIC LICENSE version 3 by [Free Software
 
 ## Feature
  - [x] take screenshot of window 
+ - [x] Windows Version 
+ - [ ] Add UAC on Windows Version  
  - [x] Arguments and make a binare of the program 
  - [ ] Make the program run in the background
  - [x] Add the Pyinstaller 
