@@ -23,7 +23,6 @@ image==1.5.27
   - pillow [required: Any, installed: 6.1.0]
 pipdeptree==0.13.2
   - pip [required: >=6.0.0, installed: 19.2.3]
-pyHook==1.5.1
 pyscreenshot==0.5.1
   - EasyProcess [required: Any, installed: 0.2.7]
 pyWinhook==1.6.1
