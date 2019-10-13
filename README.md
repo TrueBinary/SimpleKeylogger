@@ -15,7 +15,7 @@ the last one rest is pyscreenshot
 ## How i install this libs ?
 **sample just copy and past in your terminal**
 ```
-pip install pyscreenshot pyxhook & sudo apt install python-xlib
+pip install pyscreenshot pyxhook && sudo apt install python-xlib
 ```
 
 ## How i use it on Linux ?
