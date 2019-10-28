@@ -1,17 +1,6 @@
 #lib importantes
 #-*- coding: utf-8 -*-
-#!/usr/bin/python2
-"""
-  from email.MIMEMultipart import MIMEMultipart
-  from email.MIMEBase import MIMEBase
-  from email.MIMEText import MIMEText
-  from email.mime.image import MIMEImage
- """ 
-
-
-
-
-
+#!/usr/bin/python
 #Copyright (C) 2008 MrTrue <gui15787@gmail.com>
 #     This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
